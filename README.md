@@ -398,3 +398,4 @@ For issues and questions:
 - Check the troubleshooting section
 - Review application logs
 # Change66-server-logs
+# change66-log-server
