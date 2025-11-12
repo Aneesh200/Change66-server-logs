@@ -20,13 +20,15 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { formatDistanceToNow } from 'date-fns';
-import { Eye } from 'lucide-react';
+import { Eye, Search } from 'lucide-react';
+import { SearchHighlight } from './search-highlight';
 
 interface LogsTableProps {
   logs: AnalyticsLog[];
+  searchQuery?: string;
 }
 
-export function LogsTable({ logs }: LogsTableProps) {
+export function LogsTable({ logs, searchQuery = '' }: LogsTableProps) {
   const getEventTypeBadge = (eventType: string) => {
     const colors: Record<string, string> = {
       behavioral: 'bg-blue-500',
@@ -85,15 +87,25 @@ export function LogsTable({ logs }: LogsTableProps) {
             logs.map((log) => (
               <TableRow key={log.id}>
                 <TableCell>{getEventTypeBadge(log.event_type)}</TableCell>
-                <TableCell className="font-medium">{log.event_name}</TableCell>
+                <TableCell className="font-medium">
+                  <SearchHighlight text={log.event_name} searchQuery={searchQuery} />
+                </TableCell>
                 <TableCell>{getPriorityBadge(log.priority)}</TableCell>
                 <TableCell className="text-sm text-muted-foreground">
-                  {log.user_id || '-'}
+                  {log.user_id ? (
+                    <SearchHighlight text={log.user_id} searchQuery={searchQuery} />
+                  ) : '-'}
                 </TableCell>
                 <TableCell className="text-sm text-muted-foreground truncate max-w-[150px]">
-                  {log.session_id || '-'}
+                  {log.session_id ? (
+                    <SearchHighlight text={log.session_id} searchQuery={searchQuery} />
+                  ) : '-'}
                 </TableCell>
-                <TableCell className="text-sm">{log.app_version || '-'}</TableCell>
+                <TableCell className="text-sm">
+                  {log.app_version ? (
+                    <SearchHighlight text={log.app_version} searchQuery={searchQuery} />
+                  ) : '-'}
+                </TableCell>
                 <TableCell className="text-sm text-muted-foreground">
                   {formatTimestamp(log.timestamp)}
                 </TableCell>

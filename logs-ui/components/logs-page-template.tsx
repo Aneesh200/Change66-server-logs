@@ -26,6 +26,7 @@ export function LogsPageTemplate({ title, description, eventType, icon }: LogsPa
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [filter, setFilter] = useState<LogFilter>(eventType ? { event_type: eventType } : {});
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchLogs = async (newFilter?: LogFilter, page?: number, size?: number) => {
     setIsLoading(true);
@@ -57,6 +58,7 @@ export function LogsPageTemplate({ title, description, eventType, icon }: LogsPa
 
   const handleFilterChange = (newFilter: LogFilter) => {
     setFilter(newFilter);
+    setSearchQuery(newFilter.search || '');
     setCurrentPage(1);
     fetchLogs(newFilter, 1, pageSize);
   };
@@ -117,7 +119,7 @@ export function LogsPageTemplate({ title, description, eventType, icon }: LogsPa
               </div>
             ) : (
               <>
-                <LogsTable logs={logs} />
+                <LogsTable logs={logs} searchQuery={searchQuery} />
                 {totalCount > 0 && (
                   <Pagination
                     currentPage={currentPage}

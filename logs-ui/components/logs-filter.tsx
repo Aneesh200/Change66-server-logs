@@ -35,6 +35,7 @@ export function LogsFilter({ onFilter, isLoading, hideEventTypeFilter = false }:
     sort_order: 'desc',
   });
 
+  const [searchQuery, setSearchQuery] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const handleFilterChange = (key: keyof LogFilter, value: string) => {
@@ -49,6 +50,12 @@ export function LogsFilter({ onFilter, isLoading, hideEventTypeFilter = false }:
         cleanFilter[key as keyof LogFilter] = value;
       }
     });
+    
+    // Add search query if present
+    if (searchQuery.trim()) {
+      cleanFilter.search = searchQuery.trim();
+    }
+    
     onFilter(cleanFilter);
   };
 
@@ -66,6 +73,7 @@ export function LogsFilter({ onFilter, isLoading, hideEventTypeFilter = false }:
       sort_by: 'timestamp',
       sort_order: 'desc',
     });
+    setSearchQuery('');
     onFilter({});
   };
 
@@ -114,6 +122,36 @@ export function LogsFilter({ onFilter, isLoading, hideEventTypeFilter = false }:
         </div>
       </CardHeader>
       <CardContent>
+        {/* Search Bar */}
+        <div className="mb-6">
+          <label className="text-sm font-medium mb-2 block">Quick Search</label>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search logs, metadata, properties... (e.g., user_123, error message, habit_id)"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleApplyFilter();
+                }
+              }}
+              className="pl-10 h-11 text-base bg-muted/50 border-muted-foreground/20 focus:border-primary"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+          <p className="text-xs text-muted-foreground mt-2">
+            💡 Searches through event names, user IDs, session IDs, properties, and metadata
+          </p>
+        </div>
+
         {/* Basic Filters */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {!hideEventTypeFilter && (
@@ -354,12 +392,19 @@ export function LogsFilter({ onFilter, isLoading, hideEventTypeFilter = false }:
         </div>
 
         {/* Active Filters Summary */}
-        {Object.entries(filter).some(([key, value]) => 
+        {(searchQuery || Object.entries(filter).some(([key, value]) => 
           value && value !== 'all' && value !== 'timestamp' && value !== 'desc'
-        ) && (
+        )) && (
           <div className="mt-4 pt-4 border-t">
             <p className="text-xs text-muted-foreground mb-2">Active Filters:</p>
             <div className="flex flex-wrap gap-2">
+              {searchQuery && (
+                <div className="inline-flex items-center gap-1 bg-blue-500/10 text-blue-400 px-2 py-1 rounded-md text-xs border border-blue-500/20">
+                  <Search className="h-3 w-3" />
+                  <span className="font-medium">Search:</span>
+                  <span className="max-w-[200px] truncate">{searchQuery}</span>
+                </div>
+              )}
               {Object.entries(filter).map(([key, value]) => {
                 if (!value || value === 'all' || value === 'timestamp' || value === 'desc') return null;
                 

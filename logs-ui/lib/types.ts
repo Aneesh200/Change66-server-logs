@@ -54,5 +54,6 @@ export interface LogFilter {
   page_size?: number;
   sort_by?: string;
   sort_order?: 'asc' | 'desc';
+  search?: string;
 }
 
