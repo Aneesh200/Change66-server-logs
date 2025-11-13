@@ -41,12 +41,12 @@ git push origin main
 4. Click **"Create Database"**
 5. Wait for database to be created (~1-2 minutes)
 6. **IMPORTANT**: Copy these values (you'll need them soon):
-   - **Internal Database URL** (starts with `postgres://`)
-   - **Hostname** (e.g., `dpg-xxxxx.oregon-postgres.render.com`)
+   - **Internal Database URL** (starts with `postgres://`) postgresql://    analytics_logs_user:Gcai1cMF6763HjkA9aMpTddhm8nH3U1m@dpg-d493bsmmcj7s73e9c5pg-a/analytics_logs
+   - **Hostname** (e.g., `dpg-xxxxx.oregon-postgres.render.com`) dpg-d493bsmmcj7s73e9c5pg-a
    - **Port** (usually `5432`)
-   - **Database** name
-   - **Username**
-   - **Password**
+   - **Database** name analytics_logs
+   - **Username** analytics_logs_user
+   - **Password** Gcai1cMF6763HjkA9aMpTddhm8nH3U1m
 
 ---
 

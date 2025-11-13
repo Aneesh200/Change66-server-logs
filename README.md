@@ -9,6 +9,7 @@ A high-performance, multi-threaded Go server for ingesting analytics logs from t
 - **Rate Limiting**: Configurable rate limiting to prevent abuse
 - **Batch Processing**: Support for both single and batch log ingestion
 - **Advanced Filtering**: Comprehensive log filtering API with pagination and sorting
+- **Beautiful Web UI**: Modern Next.js dashboard for viewing and analyzing logs
 - **Grafana Visualization**: Pre-built dashboards for analytics and server metrics
 - **Comprehensive Monitoring**: Health checks, metrics, and Prometheus integration
 - **Database Integration**: PostgreSQL with connection pooling and migrations
@@ -81,6 +82,45 @@ docker-compose down
 **Pre-built Grafana Dashboards**:
 - **Analytics Overview**: http://localhost:3000/d/analytics-overview
 - **Server Metrics**: http://localhost:3000/d/server-metrics
+
+## Web UI Dashboard
+
+A modern, beautiful web interface for viewing and analyzing your logs is available in the `logs-ui` directory.
+
+### Quick Setup
+
+```bash
+# Navigate to the UI directory
+cd logs-ui
+
+# Install dependencies
+npm install
+
+# Configure the API URL
+echo "NEXT_PUBLIC_API_URL=http://localhost:8080" > .env.local
+
+# Start the development server
+npm run dev
+```
+
+The dashboard will be available at http://localhost:3001 (or the next available port).
+
+### Features
+
+- 📊 Real-time log viewing with advanced filtering
+- 🔍 Search by event type, priority, user ID, session ID, and more
+- 📄 Pagination with customizable page sizes
+- 📈 Statistics dashboard with key metrics
+- 📱 Responsive design for mobile and desktop
+- 🎨 Beautiful UI built with Next.js and shadcn/ui
+
+For detailed setup instructions, see [logs-ui/SETUP_GUIDE.md](logs-ui/SETUP_GUIDE.md) and [logs-ui/README.md](logs-ui/README.md).
+
+**Note**: Make sure to enable CORS in your server configuration:
+```env
+ENABLE_CORS=true
+ALLOWED_ORIGINS=http://localhost:3001
+```
 
 ## Configuration
 

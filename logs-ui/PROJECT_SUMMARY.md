@@ -280,3 +280,4 @@ For issues or questions:
 
 You now have a beautiful, fully-functional log viewing dashboard ready to use!
 
+

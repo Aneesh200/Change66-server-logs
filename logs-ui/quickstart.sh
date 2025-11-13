@@ -76,3 +76,4 @@ echo "  - SETUP_GUIDE.md - Detailed setup guide"
 echo ""
 echo "Happy logging! 🚀"
 
+

@@ -40,3 +40,4 @@ export function useLogSearch(logs: AnalyticsLog[], searchQuery: string) {
   }, [logs, searchQuery]);
 }
 
+

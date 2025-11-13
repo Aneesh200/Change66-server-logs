@@ -1,0 +1,17 @@
+Deployment Date: Tue Nov 11 02:11:56 IST 2025
+Instance Name: log-server
+Zone: us-central1-a
+External IP: 136.112.235.46
+Machine Type: e2-micro
+
+HTTP Endpoint: http://136.112.235.46/api/v1
+API Key: habit-tracker-key-dev
+
+DNS Configuration:
+Type: A
+Name: logs.biopeak.authify
+Value: 136.112.235.46
+
+Flutter Config:
+LOG_SERVER_URL = 'http://logs.biopeak.authify.tech/api/v1'
+API_KEY = 'habit-tracker-key-dev'

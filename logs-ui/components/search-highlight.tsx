@@ -31,3 +31,4 @@ export function SearchHighlight({ text, searchQuery, className = '' }: SearchHig
   );
 }
 
+
